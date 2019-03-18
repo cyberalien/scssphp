@@ -145,18 +145,18 @@ class Compiler
     protected $charsetSeen;
     protected $sourceNames;
 
-    private $indentLevel;
-    private $commentsSeen;
-    private $extends;
-    private $extendsMap;
-    private $parsedFiles;
-    private $parser;
-    private $sourceIndex;
-    private $sourceLine;
-    private $sourceColumn;
-    private $stderr;
-    private $shouldEvaluate;
-    private $ignoreErrors;
+    protected $indentLevel;
+    protected $commentsSeen;
+    protected $extends;
+    protected $extendsMap;
+    protected $parsedFiles;
+    protected $parser;
+    protected $sourceIndex;
+    protected $sourceLine;
+    protected $sourceColumn;
+    protected $stderr;
+    protected $shouldEvaluate;
+    protected $ignoreErrors;
 
     /**
      * Constructor
@@ -822,7 +822,7 @@ class Compiler
      *
      * @return array
      */
-    private function spliceTree($envs, Block $block, $without)
+    protected function spliceTree($envs, Block $block, $without)
     {
         $newBlock = null;
 
@@ -899,7 +899,7 @@ class Compiler
      *
      * @return integer
      */
-    private function compileWith($with)
+    protected function compileWith($with)
     {
         static $mapping = [
             'rule'     => self::WITH_RULE,
@@ -950,7 +950,7 @@ class Compiler
      *
      * @return \Leafo\ScssPhp\Compiler\Environment
      */
-    private function filterWithout($envs, $without)
+    protected function filterWithout($envs, $without)
     {
         $filtered = [];
 
@@ -973,7 +973,7 @@ class Compiler
      *
      * @return boolean
      */
-    private function isWithout($without, Block $block)
+    protected function isWithout($without, Block $block)
     {
         if ((($without & static::WITH_RULE) && isset($block->selectors)) ||
             (($without & static::WITH_MEDIA) &&
@@ -2220,7 +2220,7 @@ class Compiler
      *
      * @return array|null
      */
-    private function fncall($name, $argValues)
+    protected function fncall($name, $argValues)
     {
         // SCSS @function
         if ($this->callScssFunction($name, $argValues, $returnValue)) {
@@ -3021,7 +3021,7 @@ class Compiler
      *
      * @return array
      */
-    private function compactEnv(Environment $env)
+    protected function compactEnv(Environment $env)
     {
         for ($envs = []; $env; $env = $env->parent) {
             $envs[] = $env;
@@ -3037,7 +3037,7 @@ class Compiler
      *
      * @return \Leafo\ScssPhp\Compiler\Environment
      */
-    private function extractEnv($envs)
+    protected function extractEnv($envs)
     {
         for ($env = null; $e = array_pop($envs);) {
             $e->parent = $env;
@@ -3869,7 +3869,7 @@ class Compiler
      *
      * @return array|\Leafo\ScssPhp\Node\Number
      */
-    private function coerceValue($value)
+    protected function coerceValue($value)
     {
         if (is_array($value) || $value instanceof \ArrayAccess) {
             return $value;
@@ -4208,7 +4208,7 @@ class Compiler
      *
      * @return float
      */
-    private function hueToRGB($m1, $m2, $h)
+    protected function hueToRGB($m1, $m2, $h)
     {
         if ($h < 0) {
             $h += 1;
